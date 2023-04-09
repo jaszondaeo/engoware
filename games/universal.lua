@@ -493,7 +493,6 @@ do
 end
 
 do 
-    GuiLibrary.utils:removeObject("speedOptionsButton")
     local Factor = 0
     local BodyVelocity;
     local Fly = {};
@@ -634,7 +633,6 @@ do
     local FlySpeed = {};
     local FlyVSpeed = {};
     local FlyDelay = {};
-    GuiLibrary.utils:removeObject("flyOptionsButton")
     Fly = GuiLibrary.Objects.movementWindow.API.CreateOptionsButton({
         Name = "fly",
         Function = function(callback) 
