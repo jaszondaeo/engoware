@@ -970,40 +970,6 @@ end
 
 do 
     local OldMappings = {}
-    local NoSlow = {}; NoSlow = GuiLibrary.Objects.utilitiesWindow.API.CreateOptionsButton({
-        Name = "noslow",
-        Function = function(callback) 
-            if callback then 
-
-                for i,v in next, modules.ItemMeta do 
-                    if v.projectileSource then 
-                        OldMappings[i] = v.projectileSource.walkSpeedMultiplier
-                        v.projectileSource.walkSpeedMultiplier = 1
-                    end
-                    if v.sword and v.sword.chargedAttack then 
-                        OldMappings[i] = v.sword.chargedAttack.walkSpeedMultiplier
-                        v.sword.chargedAttack.walkSpeedMultiplier = 1
-                    end
-                end
-                
-            else
-
-                for i,v in next, modules.ItemMeta do 
-                    if v.projectileSource then 
-                        v.projectileSource.walkSpeedMultiplier = OldMappings[i]
-                    end
-                    if v.sword and v.sword.chargedAttack then 
-                        v.sword.chargedAttack.walkSpeedMultiplier = OldMappings[i]
-                    end
-                end
-
-            end
-        end
-    })
-end
-
-do 
-    local OldMappings = {}
     local FastUse = {}; FastUse = GuiLibrary.Objects.utilitiesWindow.API.CreateOptionsButton({
         Name = "fastuse",
         Function = function(callback) 
