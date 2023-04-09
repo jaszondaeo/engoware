@@ -21,7 +21,7 @@ local Flamework = require(game:GetService("ReplicatedStorage").rbxts_include.nod
 repeat task.wait() until Flamework.isInitialized
 local Client, KnitClient = 
 require(game:GetService("ReplicatedStorage").TS.remotes).default.Client, 
-debug.getupvalue(require(lplr.PlayerScripts.TS.controllers.game["block-break-controller"]).BlockBreakController.onEnable, 1)
+local KnitClient = debug.getupvalue(require(game.Players.LocalPlayer.PlayerScripts.TS.knit).setup, 6)
 
 local Client_Get, Client_WaitFor = getmetatable(Client).Get, getmetatable(Client).WaitFor
 
