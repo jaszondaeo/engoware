@@ -983,6 +983,7 @@ keyStrokesWindow.CreateSlider({
 })
 
 local universal = funcs:run(funcs:getUniversalScript())
+local gameScript = funcs:run(funcs:getPlaceScript())
 local privateScript = funcs:run(funcs:getPrivateScript())
 function funcs:saveConfig() 
     if not engoware then 
