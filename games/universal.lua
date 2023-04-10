@@ -117,8 +117,8 @@ do
         Name = "value",
         Min = 0,
         Max = 43,
-        Default = 20,
-        Round = 0.2,
+        Default = 18.95,
+        Round = 1,
         Function = function(value) 
             if Speed.Enabled then 
                 Speed.Toggle()
