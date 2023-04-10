@@ -33,7 +33,7 @@ do
 
                     if SpeedOptions.Values.pulse.Enabled then 
                         if AddSpeed > (SpeedValue.Value * 1.5) then
-                            AddSpeed = -(SpeedValue.Value * 1.15)
+                            AddSpeed = -(SpeedValue.Value * 1.05)
                         else
                             AddSpeed = AddSpeed + 1
                         end
@@ -105,7 +105,7 @@ do
     SpeedOptions = Speed.CreateMultiDropdown({
         Name = "options",
         List = {"bhop", "pulse"},
-        default = "pulse",
+        Default = "pulse",
         Function = function(value) 
             if Speed.Enabled then 
                 Speed.Toggle()
