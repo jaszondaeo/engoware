@@ -69,15 +69,14 @@ local funcs = {}; do
             return funcs:require(path) or ""
         end
     end
-
-    function funcs:run(code) 
+	
+	function funcs:run(code) 
         local func, err = loadstring(code)
         if not typeof(func) == 'function' then
             return warn("Failed to run code, error: " .. tostring(err))
         end
-        return func()
     end
-
+	
     function funcs:wlfind(tab, obj) 
         for i,v in next, tab do
             if v == obj or type(v) == "table" and v.hash == obj then
