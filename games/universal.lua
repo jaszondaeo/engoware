@@ -32,8 +32,8 @@ do
                     end
 
                     if SpeedOptions.Values.pulse.Enabled then 
-                        if AddSpeed > (SpeedValue.Value * 1.5) then
-                            AddSpeed = -(SpeedValue.Value * 1.25)
+                        if AddSpeed > (SpeedValue.Value * 1.55) then
+                            AddSpeed = -(SpeedValue.Value * 1.4)
                         else
                             AddSpeed = AddSpeed + 1
                         end
@@ -116,9 +116,9 @@ do
     SpeedValue = Speed.CreateSlider({
         Name = "value",
         Min = 0,
-        Max = 44,
+        Max = 43,
         Default = 20,
-        Round = 1,
+        Round = 0.2,
         Function = function(value) 
             if Speed.Enabled then 
                 Speed.Toggle()
