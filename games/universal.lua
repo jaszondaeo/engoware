@@ -32,8 +32,8 @@ do
                     end
 
                     if SpeedOptions.Values.pulse.Enabled then 
-                        if AddSpeed > (SpeedValue.Value * 1.45) then
-                            AddSpeed = -(SpeedValue.Value * 1.01)
+                        if AddSpeed > (SpeedValue.Value * 1.7) then
+                            AddSpeed = -(SpeedValue.Value * 1.5)
                         else
                             AddSpeed = AddSpeed + 1
                         end
