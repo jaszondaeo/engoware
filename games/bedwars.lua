@@ -25,33 +25,6 @@ debug.getupvalue(require(lplr.PlayerScripts.TS.controllers.game["block-break-con
 
 local Client_Get, Client_WaitFor = getmetatable(Client).Get, getmetatable(Client).WaitFor
 
-getmetatable(Client).Get = function(self, RemoteName)
-    if RemoteName == remotes.SwordRemote then 
-        local old = Client_Get(self, RemoteName)
-        return {
-            SendToServer = function(self, tab) 
-                if Hitboxes.Enabled then 
-                    pcall(function()
-                        local mag = (tab.validate.selfPosition.value - tab.validate.targetPosition.value).magnitude
-                        local newres = modules.HashVector(tab.validate.selfPosition.value + (mag > 14.4 and (CFrame.lookAt(tab.validate.selfPosition.value, tab.validate.targetPosition.value).LookVector * 4) or Vector3.new(0, 0, 0)))
-                        tab.validate.selfPosition = newres
-                    end)
-                end
-                local suc, plr = pcall(function() return Players:GetPlayerFromCharacter(tab.entityInstance) end)
-                if suc and plr then
-                    local playerattackable = funcs:isWhitelisted(plr)
-                    if not playerattackable then 
-                        return nil
-                    end
-                end
-                return old:SendToServer(tab)
-            end,
-            instance = old.instance,
-        }
-    end
-    return Client_Get(self, RemoteName)
-end
-
 engoware.UninjectEvent.Event:Connect(function() 
     getmetatable(Client).Get = Client_Get
     getmetatable(Client).WaitFor = Client_WaitFor
