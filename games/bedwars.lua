@@ -19,16 +19,9 @@ end
 
 local Flamework = require(game:GetService("ReplicatedStorage").rbxts_include.node_modules["@flamework"].core.out).Flamework
 repeat task.wait() until Flamework.isInitialized
-local Client = require(game:GetService("ReplicatedStorage").TS.remotes).default.Client
-	local KnitGotten, KnitClient
-	repeat
-		KnitGotten, KnitClient = pcall(function()
-			return debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 6)
-		end)
-		if KnitGotten then break end
-		task.wait()
-	until KnitGotten
-repeat task.wait() until debug.getupvalue(KnitClient.Start, 1)
+local Client, KnitClient = 
+require(game:GetService("ReplicatedStorage").TS.remotes).default.Client, 
+debug.getupvalue(require(lplr.PlayerScripts.TS.controllers.game["block-break-controller"]).BlockBreakController.onEnable, 1)
 
 local Client_Get, Client_WaitFor = getmetatable(Client).Get, getmetatable(Client).WaitFor
 
@@ -69,7 +62,7 @@ modules = {
 
     BlockEngine = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["block-engine"].out).BlockEngine,
     BlockBreaker = KnitClient.Controllers.BlockBreakController.blockBreaker,
-    Maid = game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@rbxts"].maid
+    Maid = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@rbxts"].maid.Maid),
 
     QueueService = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"].lobby.out.server.services["queue-service"]).QueueService,
     QueueMeta = require(game:GetService("ReplicatedStorage").TS.game["queue-meta"]).QueueMeta,
@@ -1214,6 +1207,7 @@ do
     local params = RaycastParams.new()
     params.IgnoreWater = true
     params.FilterDescendantsInstances = game:GetService("CollectionService"):GetTagged("block")
+
     local phasetick = 0
     local Phase = {}; Phase = GuiLibrary.Objects.exploitsWindow.API.CreateOptionsButton({
         Name = "phase",
@@ -1221,12 +1215,15 @@ do
             if callback then 
                 coroutine.wrap(function()
                     repeat task.wait()
+
                         if not entity.isAlive then
                             continue
                         end
+
                         if phasetick > tick() then 
                             continue 
                         end
+
                         params.FilterDescendantsInstances = game:GetService("CollectionService"):GetTagged("block")
                         local Raycast = workspace:Raycast(entity.character.HumanoidRootPart.Position, entity.character.Humanoid.MoveDirection * 2.5, params)
                         if Raycast then 
@@ -1238,6 +1235,7 @@ do
                             entity.character.HumanoidRootPart.CFrame = entity.character.HumanoidRootPart.CFrame * CFrame.new(TPCFrame * -3)
                             phasetick = tick() + 0.25
                         end
+
                     until not Phase.Enabled
                 end)()
             end
