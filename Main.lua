@@ -34,7 +34,7 @@ local funcs = {}; do
             return readfile(url)
         end
 
-        local newUrl = (bypass and "https://raw.githubusercontent.com/jaszondaeo/" or "https://raw.githubusercontent.com/jaszondaeo/engoware/main/") .. url:gsub("engoware/", ""):gsub("engoware\\", "")
+        local newUrl = (bypass and "https://raw.githubusercontent.com/joeengo/" or "https://raw.githubusercontent.com/joeengo/engoware/main/") .. url:gsub("engoware/", ""):gsub("engoware\\", "")
         local response = request({
             Url = bypass2 and url or newUrl,
             Method = "GET",
@@ -69,14 +69,15 @@ local funcs = {}; do
             return funcs:require(path) or ""
         end
     end
-	
-	function funcs:run(code) 
+
+    function funcs:run(code) 
         local func, err = loadstring(code)
         if not typeof(func) == 'function' then
             return warn("Failed to run code, error: " .. tostring(err))
         end
+        return func()
     end
-	
+
     function funcs:wlfind(tab, obj) 
         for i,v in next, tab do
             if v == obj or type(v) == "table" and v.hash == obj then
