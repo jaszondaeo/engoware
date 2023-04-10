@@ -970,6 +970,40 @@ end
 
 do 
     local OldMappings = {}
+    local NoSlow = {}; NoSlow = GuiLibrary.Objects.utilitiesWindow.API.CreateOptionsButton({
+        Name = "noslow",
+        Function = function(callback) 
+            if callback then 
+
+                for i,v in next, modules.ItemMeta do 
+                    if v.projectileSource then 
+                        OldMappings[i] = v.projectileSource.walkSpeedMultiplier
+                        v.projectileSource.walkSpeedMultiplier = 1
+                    end
+                    if v.sword and v.sword.chargedAttack then 
+                        OldMappings[i] = v.sword.chargedAttack.walkSpeedMultiplier
+                        v.sword.chargedAttack.walkSpeedMultiplier = 1
+                    end
+                end
+                
+            else
+
+                for i,v in next, modules.ItemMeta do 
+                    if v.projectileSource then 
+                        v.projectileSource.walkSpeedMultiplier = OldMappings[i]
+                    end
+                    if v.sword and v.sword.chargedAttack then 
+                        v.sword.chargedAttack.walkSpeedMultiplier = OldMappings[i]
+                    end
+                end
+
+            end
+        end
+    })
+end
+
+do 
+    local OldMappings = {}
     local FastUse = {}; FastUse = GuiLibrary.Objects.utilitiesWindow.API.CreateOptionsButton({
         Name = "fastuse",
         Function = function(callback) 
@@ -1173,7 +1207,6 @@ do
     local params = RaycastParams.new()
     params.IgnoreWater = true
     params.FilterDescendantsInstances = game:GetService("CollectionService"):GetTagged("block")
-
     local phasetick = 0
     local Phase = {}; Phase = GuiLibrary.Objects.exploitsWindow.API.CreateOptionsButton({
         Name = "phase",
@@ -1181,15 +1214,12 @@ do
             if callback then 
                 coroutine.wrap(function()
                     repeat task.wait()
-
                         if not entity.isAlive then
                             continue
                         end
-
                         if phasetick > tick() then 
                             continue 
                         end
-
                         params.FilterDescendantsInstances = game:GetService("CollectionService"):GetTagged("block")
                         local Raycast = workspace:Raycast(entity.character.HumanoidRootPart.Position, entity.character.Humanoid.MoveDirection * 2.5, params)
                         if Raycast then 
@@ -1201,7 +1231,6 @@ do
                             entity.character.HumanoidRootPart.CFrame = entity.character.HumanoidRootPart.CFrame * CFrame.new(TPCFrame * -3)
                             phasetick = tick() + 0.25
                         end
-
                     until not Phase.Enabled
                 end)()
             end
