@@ -19,9 +19,16 @@ end
 
 local Flamework = require(game:GetService("ReplicatedStorage").rbxts_include.node_modules["@flamework"].core.out).Flamework
 repeat task.wait() until Flamework.isInitialized
-local Client, KnitClient = 
-require(game:GetService("ReplicatedStorage").TS.remotes).default.Client, 
-local KnitClient = debug.getupvalue(require(game.Players.LocalPlayer.PlayerScripts.TS.knit).setup, 6)
+local Client = require(game:GetService("ReplicatedStorage").TS.remotes).default.Client
+	local KnitGotten, KnitClient
+	repeat
+		KnitGotten, KnitClient = pcall(function()
+			return debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 6)
+		end)
+		if KnitGotten then break end
+		task.wait()
+	until KnitGotten
+repeat task.wait() until debug.getupvalue(KnitClient.Start, 1)
 
 local Client_Get, Client_WaitFor = getmetatable(Client).Get, getmetatable(Client).WaitFor
 
